@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        label, input, button {
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+        }
+        input, select, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Zone Calculator</h1>
+        <label for="your-time">Your Local Time:</label>
+        <input type="time" id="your-time">
+
+        <label for="your-gmt">Your GMT Offset:</label>
+        <select id="your-gmt">
+            <option value="-12">GMT-12</option>
+            <option value="-11">GMT-11</option>
+            <!-- Additional GMT options here -->
+            <option value="0" selected>GMT+0</option>
+            <option value="1">GMT+1</option>
+            <option value="2">GMT+2</option>
+            <!-- Additional GMT options here -->
+            <option value="12">GMT+12</option>
+        </select>
+
+        <label for="friend-gmt">Friend's GMT Offset:</label>
+        <select id="friend-gmt">
+            <option value="-12">GMT-12</option>
+            <option value="-11">GMT-11</option>
+            <!-- Additional GMT options here -->
+            <option value="0">GMT+0</option>
+            <option value="1">GMT+1</option>
+            <option value="2">GMT+2</option>
+            <!-- Additional GMT options here -->
+            <option value="12">GMT+12</option>
+        </select>
+
+        <button onclick="calculateTime()">Calculate Friend's Time</button>
+
+        <h2 id="result"></h2>
+    </div>
+
+    <script>
+        function calculateTime() {
+            const yourTime = document.getElementById('your-time').value;
+            const yourGmt = parseInt(document.getElementById('your-gmt').value);
+            const friendGmt = parseInt(document.getElementById('friend-gmt').value);
+
+            if (!yourTime) {
+                alert('Please enter your local time!');
+                return;
+            }
+
+            const [hours, minutes] = yourTime.split(':').map(Number);
+            const yourTimeInMinutes = hours * 60 + minutes;
+            const timeDifference = (friendGmt - yourGmt) * 60;
+            const friendTimeInMinutes = (yourTimeInMinutes + timeDifference + 1440) % 1440;
+
+            const friendHours = Math.floor(friendTimeInMinutes / 60);
+            const friendMinutes = friendTimeInMinutes % 60;
+
+            const formattedFriendTime = `${friendHours.toString().padStart(2, '0')}:${friendMinutes.toString().padStart(2, '0')}`;
+
+            document.getElementById('result').textContent = `Your friend's local time is: ${formattedFriendTime}`;
+        }
+    </script>
+</body>
+</html>
