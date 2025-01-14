@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Zone Calculator</title>
+    <title>Калькулятор времени</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,35 +27,69 @@
 </head>
 <body>
     <div class="container">
-        <h1>Time Zone Calculator</h1>
-        <label for="your-time">Your Local Time:</label>
+        <h1>Калькулятор времени</h1>
+        <label for="your-time">Ваше местное время:</label>
         <input type="time" id="your-time">
 
-        <label for="your-gmt">Your GMT Offset:</label>
+        <label for="your-gmt">Ваш часовой пояс (GMT):</label>
         <select id="your-gmt">
             <option value="-12">GMT-12</option>
             <option value="-11">GMT-11</option>
-            <!-- Additional GMT options here -->
+            <option value="-10">GMT-10</option>
+            <option value="-9">GMT-9</option>
+            <option value="-8">GMT-8</option>
+            <option value="-7">GMT-7</option>
+            <option value="-6">GMT-6</option>
+            <option value="-5">GMT-5</option>
+            <option value="-4">GMT-4</option>
+            <option value="-3">GMT-3</option>
+            <option value="-2">GMT-2</option>
+            <option value="-1">GMT-1</option>
             <option value="0" selected>GMT+0</option>
             <option value="1">GMT+1</option>
             <option value="2">GMT+2</option>
-            <!-- Additional GMT options here -->
+            <option value="3">GMT+3</option>
+            <option value="4">GMT+4</option>
+            <option value="5">GMT+5</option>
+            <option value="6">GMT+6</option>
+            <option value="7">GMT+7</option>
+            <option value="8">GMT+8</option>
+            <option value="9">GMT+9</option>
+            <option value="10">GMT+10</option>
+            <option value="11">GMT+11</option>
             <option value="12">GMT+12</option>
         </select>
 
-        <label for="friend-gmt">Friend's GMT Offset:</label>
-        <select id="friend-gmt">
+        <label for="other-gmt">Другой часовой пояс (GMT):</label>
+        <select id="other-gmt">
             <option value="-12">GMT-12</option>
             <option value="-11">GMT-11</option>
-            <!-- Additional GMT options here -->
-            <option value="0">GMT+0</option>
+            <option value="-10">GMT-10</option>
+            <option value="-9">GMT-9</option>
+            <option value="-8">GMT-8</option>
+            <option value="-7">GMT-7</option>
+            <option value="-6">GMT-6</option>
+            <option value="-5">GMT-5</option>
+            <option value="-4">GMT-4</option>
+            <option value="-3">GMT-3</option>
+            <option value="-2">GMT-2</option>
+            <option value="-1">GMT-1</option>
+            <option value="0" selected>GMT+0</option>
             <option value="1">GMT+1</option>
             <option value="2">GMT+2</option>
-            <!-- Additional GMT options here -->
+            <option value="3">GMT+3</option>
+            <option value="4">GMT+4</option>
+            <option value="5">GMT+5</option>
+            <option value="6">GMT+6</option>
+            <option value="7">GMT+7</option>
+            <option value="8">GMT+8</option>
+            <option value="9">GMT+9</option>
+            <option value="10">GMT+10</option>
+            <option value="11">GMT+11</option>
             <option value="12">GMT+12</option>
         </select>
 
-        <button onclick="calculateTime()">Calculate Friend's Time</button>
+        <button onclick="calculateTime()">Рассчитать время</button>
 
         <h2 id="result"></h2>
     </div>
@@ -64,25 +98,26 @@
         function calculateTime() {
             const yourTime = document.getElementById('your-time').value;
             const yourGmt = parseInt(document.getElementById('your-gmt').value);
-            const friendGmt = parseInt(document.getElementById('friend-gmt').value);
+            const otherGmt = parseInt(document.getElementById('other-gmt').value);
 
             if (!yourTime) {
-                alert('Please enter your local time!');
+                alert('Пожалуйста, введите ваше местное время!');
                 return;
             }
 
             const [hours, minutes] = yourTime.split(':').map(Number);
             const yourTimeInMinutes = hours * 60 + minutes;
-            const timeDifference = (friendGmt - yourGmt) * 60;
-            const friendTimeInMinutes = (yourTimeInMinutes + timeDifference + 1440) % 1440;
+            const timeDifference = (otherGmt - yourGmt) * 60;
+            const otherTimeInMinutes = (yourTimeInMinutes + timeDifference + 1440) % 1440;
 
-            const friendHours = Math.floor(friendTimeInMinutes / 60);
-            const friendMinutes = friendTimeInMinutes % 60;
+            const otherHours = Math.floor(otherTimeInMinutes / 60);
+            const otherMinutes = otherTimeInMinutes % 60;
 
-            const formattedFriendTime = `${friendHours.toString().padStart(2, '0')}:${friendMinutes.toString().padStart(2, '0')}`;
+            const formattedOtherTime = `${otherHours.toString().padStart(2, '0')}:${otherMinutes.toString().padStart(2, '0')}`;
 
-            document.getElementById('result').textContent = `Your friend's local time is: ${formattedFriendTime}`;
+            document.getElementById('result').textContent = `Время в другом часовом поясе: ${formattedOtherTime}`;
         }
     </script>
 </body>
 </html>
+
